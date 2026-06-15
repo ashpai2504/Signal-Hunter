@@ -12,7 +12,8 @@
     "seed": "tsx src/collector/seed.ts"
   },
   "dependencies": {
-    "next": "15.1.6",
+    "eslint-config-next": "^15.5.19",
+    "next": "^15.5.19",
     "react": "19.0.0",
     "react-dom": "19.0.0"
   },
