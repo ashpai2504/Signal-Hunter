@@ -79,8 +79,7 @@ export function Dashboard() {
               className="inline-block h-2.5 w-2.5 animate-pulse rounded-full"
               style={{ background: brandConfig.hex }}
             />
-            Signal
-            <span className="text-slate-500">— Internet Intelligence</span>
+            Hunter Signal
           </h1>
           <p className="mt-1 text-sm text-slate-400">
             What the internet is saying about Hunter Industries brands · updated{" "}
@@ -230,8 +229,7 @@ export function Dashboard() {
       )}
 
       <footer className="mt-12 border-t border-white/10 pt-4 text-xs text-slate-500">
-        Signal · cost-efficient brand monitoring · data refreshes via scheduled
-        collector
+        Hunter Signal · brand monitoring across Reddit, news &amp; the web
       </footer>
     </main>
   );

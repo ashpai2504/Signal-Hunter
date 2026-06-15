@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Signal — Internet Intelligence",
+  title: "Hunter Signal",
   description:
     "Live tracker of what the internet is saying about Hunter Industries, FX Luminaire, and Lumascape.",
 };
