@@ -1,0 +1,49 @@
+name: Collect mentions
+
+# Free 24/7 monitoring: GitHub Actions cron runs the collector on a schedule,
+# commits the refreshed data/mentions.json, and (if deployed to Vercel) that
+# push triggers a redeploy so the dashboard shows fresh data.
+on:
+  schedule:
+    - cron: "0 */6 * * *" # every 6 hours (UTC)
+  workflow_dispatch: {} # allow manual runs from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Run collector
+        env:
+          # Required — Reddit via Apify.
+          APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
+          # Optional — web/forums/YouTube coverage.
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          GOOGLE_CSE_ID: ${{ secrets.GOOGLE_CSE_ID }}
+          # Optional — tailored draft replies.
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+        run: npm run collect
+
+      - name: Commit refreshed data
+        run: |
+          git config user.name "signal-bot"
+          git config user.email "signal-bot@users.noreply.github.com"
+          git add data/mentions.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore: refresh mentions $(date -u +%Y-%m-%dT%H:%MZ)"
+            git push
+          fi
