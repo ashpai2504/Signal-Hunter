@@ -93,12 +93,13 @@ export async function collectApifyReddit(brand: BrandConfig): Promise<RawHit[]> 
           "3000k",
         ];
 
-  // Per-type result caps: lots of brand + competitor mentions, plus a steady
-  // stream from each of the many topic queries. (maxResults drives Apify cost.)
+  // Sort by NEW so every run pulls the latest posts (relevance sort just keeps
+  // re-fetching the same old high-ranking threads). The store accumulates +
+  // dedupes, so fresh posts get added each run while history is retained.
   const target = (query: string, maxResults: number) => ({
     query,
-    searchSort: "relevance",
-    timeframe: "year", // niche brands are sparse; a month yields little
+    searchSort: "new",
+    timeframe: "year",
     maxResults,
   });
   const input = {

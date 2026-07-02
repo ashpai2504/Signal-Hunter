@@ -58,6 +58,11 @@ export function isOpportunity(m: Mention): boolean {
   );
 }
 
+/** Days since a mention was posted. */
+function ageInDays(m: Mention): number {
+  return (Date.now() - new Date(m.publishedAt).getTime()) / 86_400_000;
+}
+
 /** Higher = act on it sooner. Drives the Opportunities ranking. */
 export function opportunityScore(m: Mention): number {
   let s = 0;
@@ -68,6 +73,9 @@ export function opportunityScore(m: Mention): number {
   if (m.competitors?.length) s += 30; // a named competitor = a switch in play
   if (!m.brandMentioned) s += 12; // open field — they aren't on us yet
   s += Math.min(m.engagement, 300) / 10; // reach tiebreaker
+  // Recency boost — a thread from today is far more actionable than a 3-month
+  // old one, and this keeps freshly collected posts near the top.
+  s += Math.max(0, 45 - ageInDays(m));
   return s;
 }
 
@@ -110,8 +118,12 @@ export function summarizeBrand(
   );
   sources.sort((a, b) => b.total - a.total);
 
+  // Rank brand mentions by engagement, but give recent ones a lift so new
+  // posts surface instead of being buried under old high-engagement threads.
+  const mentionScore = (m: Mention) =>
+    Math.min(m.engagement, 300) + Math.max(0, 60 - ageInDays(m) * 1.5);
   const topMentions = [...brandMentions]
-    .sort((a, b) => b.engagement - a.engagement)
+    .sort((a, b) => mentionScore(b) - mentionScore(a))
     .slice(0, 25);
 
   // Opportunities draw from ALL items (incl. competitor-only threads).
