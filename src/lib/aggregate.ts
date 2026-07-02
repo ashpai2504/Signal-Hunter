@@ -1,3 +1,4 @@
+import { BRAND_BY_ID, THEME_BY_ID } from "./brands";
 import type { BrandId, Mention, Sentiment, SignalType, SourceId } from "./types";
 
 /** Mentions in the trailing `days` window (default 30). */
@@ -15,6 +16,18 @@ export interface SourceSummary {
   recent: Mention[];
 }
 
+export interface VoiceShare {
+  name: string;
+  count: number;
+  pct: number;
+  isOurs: boolean;
+}
+
+export interface NamedCount {
+  name: string;
+  count: number;
+}
+
 export interface BrandSummary {
   brand: BrandId;
   total: number;
@@ -29,6 +42,12 @@ export interface BrandSummary {
    */
   opportunities: Mention[];
   opportunityCount: number;
+  /** Share of conversation vs competitors over the trailing 30 days. */
+  shareOfVoice: VoiceShare[];
+  /** How often each tracked product came up in the window. */
+  productCounts: NamedCount[];
+  /** How often each conversation theme came up (multi-label). */
+  themeCounts: NamedCount[];
 }
 
 function emptySentiment(): Record<Sentiment, number> {
@@ -131,6 +150,47 @@ export function summarizeBrand(
     .filter(isOpportunity)
     .sort((a, b) => opportunityScore(b) - opportunityScore(a));
 
+  // ── Share of conversation, trailing 30 days ───────────────────────────
+  // "Of every post we saw this month, how many named us vs each competitor?"
+  // One post can name several brands; each named brand gets a count.
+  const CANON: Record<string, string> = { VOLT: "Volt Lighting", Rainbird: "Rain Bird" };
+  const monthItems = withinDays(items, 30);
+  const voice = new Map<string, number>();
+  const ourName = BRAND_BY_ID[brand].shortName;
+  for (const m of monthItems) {
+    if (m.brandMentioned) voice.set(ourName, (voice.get(ourName) ?? 0) + 1);
+    for (const c of new Set((m.competitors ?? []).map((x) => CANON[x] ?? x))) {
+      voice.set(c, (voice.get(c) ?? 0) + 1);
+    }
+  }
+  const voiceTotal = [...voice.values()].reduce((a, b) => a + b, 0) || 1;
+  const shareOfVoice: VoiceShare[] = [...voice.entries()]
+    .map(([name, count]) => ({
+      name,
+      count,
+      pct: Math.round((count / voiceTotal) * 100),
+      isOurs: name === ourName,
+    }))
+    .sort((a, b) => b.count - a.count);
+
+  // ── Product + theme rollups over the full window ──────────────────────
+  const productMap = new Map<string, number>();
+  const themeMap = new Map<string, number>();
+  for (const m of items) {
+    for (const pr of m.products ?? []) {
+      productMap.set(pr, (productMap.get(pr) ?? 0) + 1);
+    }
+    for (const th of m.themes ?? []) {
+      themeMap.set(th, (themeMap.get(th) ?? 0) + 1);
+    }
+  }
+  const productCounts: NamedCount[] = [...productMap.entries()]
+    .map(([name, count]) => ({ name, count }))
+    .sort((a, b) => b.count - a.count);
+  const themeCounts: NamedCount[] = [...themeMap.entries()]
+    .map(([id, count]) => ({ name: THEME_BY_ID[id]?.label ?? id, count }))
+    .sort((a, b) => b.count - a.count);
+
   return {
     brand,
     total: brandMentions.length,
@@ -140,5 +200,8 @@ export function summarizeBrand(
     topMentions,
     opportunities: opportunitiesAll.slice(0, 40),
     opportunityCount: opportunitiesAll.length,
+    shareOfVoice,
+    productCounts,
+    themeCounts,
   };
 }

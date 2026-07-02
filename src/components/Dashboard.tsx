@@ -1,12 +1,14 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { BRANDS, sourceBlurb } from "@/lib/brands";
+import { BRANDS, THEMES, sourceBlurb } from "@/lib/brands";
 import type { BrandId, SourceId } from "@/lib/types";
 import type { BrandSummary } from "@/lib/aggregate";
 import { SourceCard } from "./SourceCard";
 import { MentionRow } from "./MentionRow";
 import { StatsBar } from "./StatsBar";
+import { ShareOfVoice } from "./ShareOfVoice";
+import { SettingsPanel } from "./SettingsPanel";
 
 interface ApiResponse {
   generatedAt: string;
@@ -22,6 +24,8 @@ export function Dashboard() {
   const [brand, setBrand] = useState<BrandId>("hunter");
   const [source, setSource] = useState<SourceId | null>(null);
   const [view, setView] = useState<"opportunities" | "top">("opportunities");
+  const [themeFilter, setThemeFilter] = useState<string | null>(null);
+  const [settingsOpen, setSettingsOpen] = useState(false);
   const listRef = useRef<HTMLDivElement>(null);
 
   function showList(next: "opportunities" | "top") {
@@ -56,13 +60,33 @@ export function Dashboard() {
     [data, brand],
   );
 
-  // Mentions to show: a selected source's list, or the chosen view.
+  // Mentions to show: a selected source's list, or the chosen view — then
+  // narrowed by the active theme filter, if any.
   const mentions = useMemo(() => {
     if (!summary) return [];
+    let list: BrandSummary["topMentions"];
     if (source) {
-      return summary.sources.find((s) => s.source === source)?.recent ?? [];
+      list = summary.sources.find((s) => s.source === source)?.recent ?? [];
+    } else {
+      list = view === "opportunities" ? summary.opportunities : summary.topMentions;
     }
-    return view === "opportunities" ? summary.opportunities : summary.topMentions;
+    return themeFilter
+      ? list.filter((m) => m.themes?.includes(themeFilter))
+      : list;
+  }, [summary, source, view, themeFilter]);
+
+  // Only offer theme filters that actually occur in the current list scope.
+  const availableThemes = useMemo(() => {
+    if (!summary) return [];
+    const present = new Set(
+      (source
+        ? summary.sources.find((s) => s.source === source)?.recent ?? []
+        : view === "opportunities"
+          ? summary.opportunities
+          : summary.topMentions
+      ).flatMap((m) => m.themes ?? []),
+    );
+    return THEMES.filter((t) => present.has(t.id));
   }, [summary, source, view]);
 
   const updated = data?.generatedAt
@@ -87,29 +111,44 @@ export function Dashboard() {
           </p>
         </div>
 
-        {/* Brand toggle */}
-        <div className="inline-flex rounded-xl border border-white/10 bg-white/[0.02] p-1">
-          {BRANDS.map((b) => {
-            const isActive = b.id === brand;
-            return (
-              <button
-                key={b.id}
-                onClick={() => {
-                  setBrand(b.id);
-                  setSource(null);
-                }}
-                className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
-                  isActive ? "text-slate-900" : "text-slate-300 hover:text-white"
-                }`}
-                style={isActive ? { background: b.hex } : {}}
-                title={b.tagline}
-              >
-                {b.shortName}
-              </button>
-            );
-          })}
+        <div className="flex items-center gap-2">
+          {/* Brand toggle */}
+          <div className="inline-flex rounded-xl border border-white/10 bg-white/[0.02] p-1">
+            {BRANDS.map((b) => {
+              const isActive = b.id === brand;
+              return (
+                <button
+                  key={b.id}
+                  onClick={() => {
+                    setBrand(b.id);
+                    setSource(null);
+                    setThemeFilter(null);
+                  }}
+                  className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
+                    isActive ? "text-slate-900" : "text-slate-300 hover:text-white"
+                  }`}
+                  style={isActive ? { background: b.hex } : {}}
+                  title={b.tagline}
+                >
+                  {b.shortName}
+                </button>
+              );
+            })}
+          </div>
+          {/* Manage tracked sources — products, subreddits, competitors */}
+          <button
+            onClick={() => setSettingsOpen(true)}
+            title="Manage tracked products, subreddits & competitors"
+            className="rounded-xl border border-white/10 bg-white/[0.02] px-3 py-2 text-sm text-slate-300 hover:bg-white/[0.06] hover:text-white"
+          >
+            ⚙️ Settings
+          </button>
         </div>
       </header>
+
+      {settingsOpen && (
+        <SettingsPanel brand={brand} onClose={() => setSettingsOpen(false)} />
+      )}
 
       {data?.mode === "demo" && (
         <div className="mb-6 flex flex-wrap items-center gap-x-2 gap-y-1 rounded-lg border border-amber-400/30 bg-amber-400/[0.07] px-4 py-3 text-sm text-amber-200">
@@ -139,6 +178,15 @@ export function Dashboard() {
               summary={summary}
               onSelectMentions={() => showList("top")}
               onSelectOpportunities={() => showList("opportunities")}
+            />
+          </section>
+
+          {/* Competitor share + product intelligence */}
+          <section className="mb-8">
+            <ShareOfVoice
+              share={summary.shareOfVoice}
+              productCounts={summary.productCounts}
+              accentHex={brandConfig.hex}
             />
           </section>
 
@@ -217,6 +265,40 @@ export function Dashboard() {
                 </p>
               </div>
             )}
+            {/* Theme filter — a post can belong to several themes */}
+            {availableThemes.length > 0 && (
+              <div className="mb-3 flex flex-wrap items-center gap-1.5">
+                <span className="text-[11px] uppercase tracking-wide text-slate-500">
+                  Themes:
+                </span>
+                <button
+                  onClick={() => setThemeFilter(null)}
+                  className={`rounded-full px-2.5 py-1 text-xs transition-colors ${
+                    themeFilter === null
+                      ? "bg-white/15 font-semibold text-white"
+                      : "border border-white/10 text-slate-400 hover:text-white"
+                  }`}
+                >
+                  All
+                </button>
+                {availableThemes.map((t) => (
+                  <button
+                    key={t.id}
+                    onClick={() =>
+                      setThemeFilter((cur) => (cur === t.id ? null : t.id))
+                    }
+                    className={`rounded-full px-2.5 py-1 text-xs transition-colors ${
+                      themeFilter === t.id
+                        ? "bg-white/15 font-semibold text-white"
+                        : "border border-white/10 text-slate-400 hover:text-white"
+                    }`}
+                  >
+                    {t.label}
+                  </button>
+                ))}
+              </div>
+            )}
+
             <div className="space-y-3">
               {mentions.length === 0 ? (
                 <p className="text-slate-500">No conversations in this view.</p>

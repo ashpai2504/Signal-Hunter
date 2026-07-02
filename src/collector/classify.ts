@@ -1,18 +1,18 @@
 import type { BrandConfig } from "../lib/brands";
+import { THEMES } from "../lib/brands";
 import type { Mention, Sentiment, SignalType } from "../lib/types";
 import { makeMentionId } from "../lib/store";
-import { detectCompetitors, env, type RawHit } from "./util";
+import { detectCompetitors, detectProducts, env, type RawHit } from "./util";
 
 /**
  * Turn a raw hit into a fully classified Mention.
  *
- * Uses Groq (free tier, OpenAI-compatible) running Llama to assign the signal
- * type + sentiment and to draft a reply in Hunter's voice. If GROQ_API_KEY is
- * absent we fall back to a fast keyword heuristic so the pipeline still works.
+ * LLM backends, in order of preference:
+ *   1. Azure AI Foundry (AZURE_AI_API_KEY + AZURE_AI_ENDPOINT + AZURE_AI_DEPLOYMENT)
+ *   2. Groq (GROQ_API_KEY)
+ * With no key configured, a keyword heuristic keeps the pipeline working
+ * (signal type, sentiment, themes via keyword hints, templated draft reply).
  */
-const GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
-const GROQ_MODEL = env("GROQ_MODEL") ?? "llama-3.3-70b-versatile";
-
 const SIGNAL_TYPES: SignalType[] = [
   "buying-decision",
   "competitor-frustration",
@@ -21,73 +21,125 @@ const SIGNAL_TYPES: SignalType[] = [
   "content-gap",
 ];
 
+const THEME_IDS = new Set(THEMES.map((t) => t.id));
+
 interface LlmResult {
   signalType: SignalType;
   sentiment: Sentiment;
+  themes: string[];
   draftResponse: string;
 }
 
 function systemPrompt(brand: BrandConfig): string {
+  const themeList = THEMES.map((t) => `${t.id} (${t.label})`).join(", ");
   return [
     `You analyze internet conversations for ${brand.name}, a brand that makes ${brand.tagline}.`,
-    `Classify each conversation into exactly one signalType from this list:`,
-    `- buying-decision: someone is actively choosing/comparing products to buy now`,
-    `- competitor-frustration: frustration with a competitor (e.g. Rain Bird, Toro)`,
+    `Classify each conversation into exactly one signalType:`,
+    `- buying-decision: actively choosing/comparing products to buy now`,
+    `- competitor-frustration: frustration with a competitor (${brand.competitors.slice(0, 3).join(", ")}...)`,
     `- unanswered-question: a question that ranks or could rank on Google`,
     `- brand-mention: a direct mention of the brand with no strong intent`,
     `- content-gap: a topic with no good existing content to point to`,
-    `Also rate sentiment as positive, neutral, or negative (toward ${brand.name}).`,
-    `Then write a short (max 60 words), helpful, non-salesy draftResponse in the brand's friendly expert voice that the marketing team could post.`,
-    `Respond ONLY with compact JSON: {"signalType":"...","sentiment":"...","draftResponse":"..."}.`,
+    `Rate sentiment toward ${brand.name} as positive, neutral, or negative.`,
+    `Pick 1-4 themes (a post can belong to several) from: ${themeList}.`,
+    `Write a short (max 60 words), helpful, non-salesy draftResponse in the brand's friendly expert voice.`,
+    `Respond ONLY with compact JSON: {"signalType":"...","sentiment":"...","themes":["..."],"draftResponse":"..."}.`,
   ].join("\n");
 }
 
-async function classifyWithGroq(
-  hit: RawHit,
-  brand: BrandConfig,
-  apiKey: string,
-): Promise<LlmResult | null> {
+/** One OpenAI-compatible chat call — Azure AI Foundry or Groq. */
+async function chatJson(
+  system: string,
+  user: string,
+): Promise<Record<string, unknown> | null> {
+  const azureKey = env("AZURE_AI_API_KEY");
+  const azureEndpoint = env("AZURE_AI_ENDPOINT");
+  const groqKey = env("GROQ_API_KEY");
+
+  let url: string;
+  let headers: Record<string, string>;
+  let model: string | undefined;
+
+  if (azureKey && azureEndpoint) {
+    const deployment = env("AZURE_AI_DEPLOYMENT") ?? "gpt-4o-mini";
+    const apiVersion = env("AZURE_AI_API_VERSION") ?? "2024-08-01-preview";
+    url = `${azureEndpoint.replace(/\/$/, "")}/openai/deployments/${deployment}/chat/completions?api-version=${apiVersion}`;
+    headers = { "api-key": azureKey, "Content-Type": "application/json" };
+  } else if (groqKey) {
+    url = "https://api.groq.com/openai/v1/chat/completions";
+    headers = {
+      Authorization: `Bearer ${groqKey}`,
+      "Content-Type": "application/json",
+    };
+    model = env("GROQ_MODEL") ?? "llama-3.3-70b-versatile";
+  } else {
+    return null;
+  }
+
   try {
-    const res = await fetch(GROQ_URL, {
+    const res = await fetch(url, {
       method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-      },
+      headers,
       body: JSON.stringify({
-        model: GROQ_MODEL,
-        temperature: 0.4,
+        ...(model ? { model } : {}),
+        temperature: 0.3,
         response_format: { type: "json_object" },
         messages: [
-          { role: "system", content: systemPrompt(brand) },
-          {
-            role: "user",
-            content: `Title: ${hit.title}\nContext: ${hit.context ?? ""}\nText: ${hit.excerpt}`,
-          },
+          { role: "system", content: system },
+          { role: "user", content: user },
         ],
       }),
     });
     if (!res.ok) {
-      console.warn(`  [classify] Groq HTTP ${res.status}`);
+      console.warn(`  [classify] LLM HTTP ${res.status}`);
       return null;
     }
     const json = (await res.json()) as {
       choices: { message: { content: string } }[];
     };
-    const parsed = JSON.parse(json.choices[0].message.content) as Partial<LlmResult>;
-    if (!parsed.signalType || !SIGNAL_TYPES.includes(parsed.signalType)) return null;
-    return {
-      signalType: parsed.signalType,
-      sentiment: (parsed.sentiment as Sentiment) ?? "neutral",
-      draftResponse: parsed.draftResponse ?? "",
-    };
+    return JSON.parse(json.choices[0].message.content) as Record<
+      string,
+      unknown
+    >;
   } catch (e) {
-    console.warn(`  [classify] Groq error: ${String(e).slice(0, 100)}`);
+    console.warn(`  [classify] LLM error: ${String(e).slice(0, 100)}`);
     return null;
   }
 }
 
-/** Cheap keyword heuristic used when Groq is unavailable. */
+async function classifyWithLlm(
+  hit: RawHit,
+  brand: BrandConfig,
+): Promise<LlmResult | null> {
+  const parsed = await chatJson(
+    systemPrompt(brand),
+    `Title: ${hit.title}\nContext: ${hit.context ?? ""}\nText: ${hit.excerpt}`,
+  );
+  if (!parsed) return null;
+  const signalType = parsed.signalType as SignalType;
+  if (!SIGNAL_TYPES.includes(signalType)) return null;
+  const themes = Array.isArray(parsed.themes)
+    ? (parsed.themes as string[]).filter((t) => THEME_IDS.has(t)).slice(0, 4)
+    : [];
+  return {
+    signalType,
+    sentiment: (parsed.sentiment as Sentiment) ?? "neutral",
+    themes,
+    draftResponse: typeof parsed.draftResponse === "string" ? parsed.draftResponse : "",
+  };
+}
+
+/** Keyword-hint theme detection — multi-label, used when no LLM ran. */
+function detectThemesHeuristic(text: string): string[] {
+  const t = ` ${text.toLowerCase()} `;
+  return THEMES.filter((theme) =>
+    theme.hints.some((h) => t.includes(h)),
+  )
+    .map((theme) => theme.id)
+    .slice(0, 4);
+}
+
+/** Cheap keyword heuristic used when no LLM key is configured. */
 function classifyHeuristic(hit: RawHit, brand: BrandConfig): LlmResult {
   const t = `${hit.title} ${hit.excerpt}`.toLowerCase();
   const competitors = brand.competitors.map((c) => c.toLowerCase());
@@ -100,8 +152,6 @@ function classifyHeuristic(hit: RawHit, brand: BrandConfig): LlmResult {
 
   let signalType: SignalType = "brand-mention";
   if (hit.kind === "topic") {
-    // Intent threads: a comparison is a buying decision, a design/how-to is a
-    // content gap, everything else is an unanswered question to get to first.
     signalType = isComparison
       ? "buying-decision"
       : isDesignGap
@@ -127,8 +177,7 @@ function classifyHeuristic(hit: RawHit, brand: BrandConfig): LlmResult {
   return {
     signalType,
     sentiment,
-    // A light templated draft so the feature works without Groq. Add a
-    // GROQ_API_KEY for genuinely tailored, on-topic replies.
+    themes: detectThemesHeuristic(`${hit.title} ${hit.excerpt}`),
     draftResponse: templateDraft(signalType, brand),
   };
 }
@@ -153,15 +202,16 @@ export async function classifyHit(
   hit: RawHit,
   brand: BrandConfig,
 ): Promise<Mention> {
-  const apiKey = env("GROQ_API_KEY");
   const result =
-    (apiKey && (await classifyWithGroq(hit, brand, apiKey))) ||
-    classifyHeuristic(hit, brand);
+    (await classifyWithLlm(hit, brand)) ?? classifyHeuristic(hit, brand);
 
-  const competitors = detectCompetitors(
-    `${hit.title} ${hit.excerpt}`,
-    brand.competitors,
-  );
+  const text = `${hit.title} ${hit.excerpt}`;
+  const competitors = detectCompetitors(text, brand.competitors);
+  const products = detectProducts(text, brand.products, hit.brandMentioned);
+  // Ensure themes exist even when the LLM skipped them.
+  const themes = result.themes.length
+    ? result.themes
+    : detectThemesHeuristic(text);
 
   return {
     id: makeMentionId({ source: hit.source, url: hit.url, excerpt: hit.excerpt }),
@@ -178,6 +228,8 @@ export async function classifyHit(
     sentiment: result.sentiment,
     engagement: hit.engagement,
     competitors: competitors.length ? competitors : undefined,
+    products: products.length ? products : undefined,
+    themes: themes.length ? themes : undefined,
     brandMentioned: hit.brandMentioned,
     draftResponse: result.draftResponse || undefined,
   };

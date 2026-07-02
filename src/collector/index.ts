@@ -8,7 +8,8 @@
  * contributes zero hits, so you can wire keys in one at a time.
  */
 import "dotenv/config";
-import { BRANDS } from "../lib/brands";
+import type { BRANDS } from "../lib/brands";
+import { effectiveBrands } from "../lib/config";
 import { upsertMentions } from "../lib/store";
 import type { Mention } from "../lib/types";
 import { collectGoogleNews } from "./sources/googlenews";
@@ -32,8 +33,11 @@ async function main() {
   const started = Date.now();
   console.log("Signal collector starting…");
 
+  // Brand configs with any dashboard-added products/subreddits/competitors.
+  const brands = await effectiveBrands();
+
   const allHits: RawHit[] = [];
-  for (const brand of BRANDS) {
+  for (const brand of brands) {
     console.log(`\n# ${brand.name}`);
     for (const { name, fn } of SOURCE_FNS) {
       try {
@@ -55,10 +59,18 @@ async function main() {
   }
 
   console.log(`\nClassifying ${allHits.length} hits…`);
-  const brandById = Object.fromEntries(BRANDS.map((b) => [b.id, b]));
+  const brandById = Object.fromEntries(brands.map((b) => [b.id, b]));
+  // Classify in small parallel batches — the LLM call dominates runtime.
   const mentions: Mention[] = [];
-  for (const hit of allHits) {
-    mentions.push(await classifyHit(hit, brandById[hit.brand]));
+  const BATCH = 8;
+  for (let i = 0; i < allHits.length; i += BATCH) {
+    const batch = allHits.slice(i, i + BATCH);
+    mentions.push(
+      ...(await Promise.all(
+        batch.map((hit) => classifyHit(hit, brandById[hit.brand])),
+      )),
+    );
+    if (i > 0 && i % 80 === 0) console.log(`  …${i}/${allHits.length}`);
   }
 
   const store = await upsertMentions(mentions);

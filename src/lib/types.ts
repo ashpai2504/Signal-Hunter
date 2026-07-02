@@ -50,6 +50,11 @@ export interface Mention {
   engagement: number;
   /** Competitor brands named in the conversation (Rain Bird, Toro, Kichler…). */
   competitors?: string[];
+  /** Product names detected in the text (Hydrawise, PGP…). One post = one
+   *  mention; products are tags on it, never duplicate rows. */
+  products?: string[];
+  /** Conversation themes — a post can belong to several at once. */
+  themes?: string[];
   /** Whether the text actually named our brand (vs. a competitor-only thread). */
   brandMentioned: boolean;
   /** A draft reply written in Hunter's voice, ready for review. */

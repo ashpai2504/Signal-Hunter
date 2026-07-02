@@ -3,11 +3,26 @@ import { brandTopics } from "../../lib/brands";
 import {
   clip,
   detectCompetitors,
+  detectProducts,
   env,
   isoOrNow,
   mentionsBrand,
   type RawHit,
 } from "../util";
+
+/** Split a list into `"a" OR "b" OR ...` query strings of at most `size` items. */
+function orChunks(items: string[], size: number): string[] {
+  const out: string[] = [];
+  for (let i = 0; i < items.length; i += size) {
+    out.push(
+      items
+        .slice(i, i + size)
+        .map((x) => `"${x}"`)
+        .join(" OR "),
+    );
+  }
+  return out;
+}
 
 /**
  * Reddit via the Apify "Reddit Scraper" actor — real posts + comments with
@@ -49,12 +64,31 @@ export async function collectApifyReddit(brand: BrandConfig): Promise<RawHit[]> 
       : "(landscape OR lighting OR outdoor OR fixture)";
 
   const brandQuery = brand.keywords.map((k) => `"${k}"`).join(" OR ");
+  // Product-name queries (Hydrawise, PGP, X-Core…) — catch posts that name a
+  // product without the brand phrase. Chunked to stay under query length caps.
+  const productQueries = orChunks(brand.products, 8).map(
+    (q) => `(${q}) ${qualifier}`,
+  );
   const competitorQueries = brand.competitors
     .filter((c) => !c.includes(" vs "))
-    .slice(0, 3)
+    .slice(0, 4)
     .map((c) => `"${c}" ${qualifier}`);
   // Topic/intent queries — the volume driver.
   const topicQueries = brandTopics(brand).map((t) => `"${t}" ${qualifier}`);
+  // Bare brand word searched INSIDE the brand's own communities — catches posts
+  // like "new hunter controller?" in r/Irrigation that no product phrase hits.
+  // Only for unambiguous words (5+ chars), so "FX" alone is never searched.
+  const bareWord = brand.shortName.split(/\s+/)[0];
+  const bareTargets =
+    bareWord.length >= 5
+      ? brand.channels.subreddits.slice(0, 4).map((subreddit) => ({
+          query: bareWord,
+          restrictToSubreddit: subreddit,
+          searchSort: "new",
+          timeframe: "year",
+          maxResults: 15,
+        }))
+      : [];
 
   const compSet = new Set(competitorQueries);
   const topicSet = new Set(topicQueries);
@@ -105,9 +139,11 @@ export async function collectApifyReddit(brand: BrandConfig): Promise<RawHit[]> 
   const input = {
     mode: "search", // REQUIRED — without it the actor ignores the query.
     searchTargets: [
-      target(brandQuery, 40),
-      ...competitorQueries.map((q) => target(q, 15)),
-      ...topicQueries.map((q) => target(q, 10)),
+      target(brandQuery, 30),
+      ...bareTargets,
+      ...productQueries.map((q) => target(q, 10)),
+      ...competitorQueries.map((q) => target(q, 12)),
+      ...topicQueries.map((q) => target(q, 6)),
     ],
   };
 
@@ -137,13 +173,6 @@ export async function collectApifyReddit(brand: BrandConfig): Promise<RawHit[]> 
     const blob = `${p.title ?? ""} ${p.text ?? ""}`;
     const matched = p.matched_search_queries ?? [];
 
-    // Categorize: brand mention > competitor thread > topic/intent thread.
-    const isBrand = mentionsBrand(blob, brand.keywords);
-    const hasCompetitor =
-      detectCompetitors(blob, brand.competitors).length > 0 ||
-      matched.some((q) => compSet.has(q));
-    const isTopic = matched.some((q) => topicSet.has(q));
-
     // permalink may be a path ("/r/...") or already a full URL — handle both.
     const raw = p.permalink ?? p.url ?? "";
     const url = !raw
@@ -154,6 +183,20 @@ export async function collectApifyReddit(brand: BrandConfig): Promise<RawHit[]> 
     if (!url) continue;
     const sub = (p.permalink ?? p.url ?? "").match(/\/r\/([^/]+)/)?.[1];
     const subOk = sub ? relevantSubs.has(sub.toLowerCase()) : false;
+
+    // Categorize: brand mention > competitor thread > topic/intent thread.
+    // A brand mention is any of: a keyword phrase ("Hunter Pro-C"), a product
+    // name (fuzzy, so "rainclik" works), or the bare brand word inside one of
+    // the brand's own communities ("hunter" in r/Irrigation).
+    const bareRe = new RegExp(`\\b${bareWord.toLowerCase()}\\b`);
+    const isBrand =
+      mentionsBrand(blob, brand.keywords) ||
+      detectProducts(blob, brand.products, true).length > 0 ||
+      (bareWord.length >= 5 && subOk && bareRe.test(blob.toLowerCase()));
+    const hasCompetitor =
+      detectCompetitors(blob, brand.competitors).length > 0 ||
+      matched.some((q) => compSet.has(q));
+    const isTopic = matched.some((q) => topicSet.has(q));
     const lower = blob.toLowerCase();
     const onTopic = subOk || categoryTerms.some((term) => lower.includes(term));
 

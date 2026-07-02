@@ -50,6 +50,40 @@ export function mentionsBrand(text: string, keywords: string[]): boolean {
   return keywords.some((k) => lower.includes(k.toLowerCase()));
 }
 
+/**
+ * Which tracked products are named in this text. Matching is fuzzy on
+ * separators/case: the text is tokenized and 1–3 word runs are compared with
+ * hyphens/spaces stripped — so "Rainclik", "Rain-Clik", and "rain clik" all
+ * match the "Rain-Clik" product, and "Pro HC" matches "Pro-HC".
+ * (True misspellings like "Hydrowise" won't match — that needs the LLM.)
+ *
+ * Ambiguous names (common words / 2-char codes) only count when the brand is
+ * also present, so "node.js" chatter never tags the Hunter NODE controller.
+ */
+const AMBIGUOUS_PRODUCTS = new Set(["node", "x2", "eclipse", "vibe"]);
+
+export function detectProducts(
+  text: string,
+  products: string[],
+  brandPresent: boolean,
+): string[] {
+  const words = text.toLowerCase().split(/[^a-z0-9]+/).filter(Boolean);
+  const grams = new Set<string>();
+  for (let n = 1; n <= 3; n++) {
+    for (let i = 0; i + n <= words.length; i++) {
+      grams.add(words.slice(i, i + n).join(""));
+    }
+  }
+  const found: string[] = [];
+  for (const p of products) {
+    const norm = p.toLowerCase().replace(/[^a-z0-9]+/g, "");
+    if (!norm || !grams.has(norm)) continue;
+    if (AMBIGUOUS_PRODUCTS.has(norm) && !brandPresent) continue;
+    found.push(p);
+  }
+  return found;
+}
+
 /** Which competitor brands are named in this text (de-duplicated, canonical). */
 export function detectCompetitors(text: string, competitors: string[]): string[] {
   const lower = text.toLowerCase();

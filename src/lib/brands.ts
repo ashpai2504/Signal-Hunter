@@ -21,6 +21,12 @@ export interface BrandConfig {
    * (b) flag opportunities — conversations where we can win someone over.
    */
   competitors: string[];
+  /**
+   * Product names to track (Hydrawise, MP Rotator, X-Core…). Matched fuzzily —
+   * hyphens/spaces/case are ignored, so "Rainclik" and "Pro HC" still hit.
+   * A post naming a product counts ONCE, tagged with brand + product(s).
+   */
+  products: string[];
   /** Where this brand is actually discussed — drives collectors AND the UI. */
   channels: {
     /** Subreddits the Reddit collector searches for THIS brand. */
@@ -60,7 +66,38 @@ export const BRANDS: BrandConfig[] = [
       "Rachio",
       "Irritrol",
       "Weathermatic",
-      "Hunter vs Rain Bird",
+      "Netafim",
+    ],
+    products: [
+      "Hydrawise",
+      "MP Rotator",
+      "Pro-Spray",
+      "X2",
+      "X-Core",
+      "XC Hybrid",
+      "I-Core",
+      "PGP",
+      "PGJ",
+      "I-20",
+      "I-25",
+      "I-40",
+      "PS Ultra",
+      "Pro-HC",
+      "Pro-C",
+      "HCC",
+      "HPC",
+      "ICC2",
+      "ACC2",
+      "MCC",
+      "Centralus",
+      "Node",
+      "HC Flow Meter",
+      "Soil-Clik",
+      "Rain-Clik",
+      "Solar Sync",
+      "WVL",
+      "ICV",
+      "PGV",
     ],
     channels: {
       subreddits: [
@@ -106,6 +143,7 @@ export const BRANDS: BrandConfig[] = [
       "Coastal Source",
       "Brilliance LED",
     ],
+    products: ["Luxor", "ZDC", "PerfectMount", "SRP", "JS LED", "MP LED"],
     channels: {
       subreddits: [
         "landscapelighting",
@@ -146,6 +184,7 @@ export const BRANDS: BrandConfig[] = [
       "Hess",
       "Lumenbeam",
     ],
+    products: ["Eclipse", "Vibe", "LS Series"],
     channels: {
       subreddits: [
         "lighting",
@@ -223,6 +262,40 @@ export const LIGHTING_TOPICS: string[] = [
 export function brandTopics(brand: BrandConfig): string[] {
   return brand.category === "irrigation" ? IRRIGATION_TOPICS : LIGHTING_TOPICS;
 }
+
+/**
+ * Conversation themes — a mention can belong to SEVERAL themes at once
+ * (e.g. a golf-course winterization question is golf + winterization).
+ * `hints` powers the keyword fallback when no LLM key is configured.
+ */
+export interface ThemeMeta {
+  id: string;
+  label: string;
+  hints: string[];
+}
+
+export const THEMES: ThemeMeta[] = [
+  { id: "buying-advice", label: "Buying advice", hints: ["which should", "recommend", "worth it", "vs", "best ", "what brand", "looking to buy", "shopping"] },
+  { id: "installation", label: "Installation", hints: ["install", "how deep", "trench", "wiring", "wire ", "setup", "mounting", "bury", "layout", "spacing"] },
+  { id: "troubleshooting", label: "Troubleshooting", hints: ["not working", "won't", "wont ", "stuck", "leak", "broken", "problem", "issue", "error", "fail", "stopped", "short cycling", "clog"] },
+  { id: "water-savings", label: "Water savings", hints: ["water bill", "save water", "water usage", "efficiency", "conservation", "smart watering", "et data", "weather based"] },
+  { id: "controller-programming", label: "Controller programming", hints: ["program", "schedule", "run time", "start time", "zone time", "seasonal adjust", "app ", "wifi", "controller set"] },
+  { id: "diy", label: "DIY", hints: ["diy", "myself", "first time", "beginner", "new to", "homeowner here", "am i able to"] },
+  { id: "professional-contractor", label: "Professional contractor", hints: ["contractor", "client", "customer", "bid", "install base", "crew", "my business", "we install"] },
+  { id: "sports-fields", label: "Sports fields", hints: ["sports field", "athletic field", "baseball", "soccer field", "football field", "turf field"] },
+  { id: "municipal", label: "Municipal", hints: ["municipal", "city park", "hoa", "public works", "streetscape", "civic"] },
+  { id: "commercial", label: "Commercial", hints: ["commercial", "property manage", "office park", "retail", "hotel", "campus"] },
+  { id: "residential", label: "Residential", hints: ["backyard", "front yard", "my lawn", "my yard", "my house", "home ", "residential"] },
+  { id: "golf", label: "Golf", hints: ["golf", "fairway", "course irrigation", "greens ", "superintendent"] },
+  { id: "pricing", label: "Pricing", hints: ["price", "cost", "expensive", "cheap", "quote", "budget", "how much"] },
+  { id: "winterization", label: "Winterization", hints: ["winteriz", "blow out", "blowout", "freeze", "frozen", "spring startup", "de-winterize"] },
+  { id: "comparing-brands", label: "Comparing brands", hints: [" vs ", "versus", "compared to", "or rain bird", "or toro", "better than"] },
+  { id: "complaint", label: "Complaint", hints: ["disappoint", "frustrat", "junk", "worst", "terrible", "awful", "never again", "warranty claim", "fed up"] },
+];
+
+export const THEME_BY_ID: Record<string, ThemeMeta> = Object.fromEntries(
+  THEMES.map((t) => [t.id, t]),
+);
 
 export const BRAND_BY_ID: Record<BrandId, BrandConfig> = Object.fromEntries(
   BRANDS.map((b) => [b.id, b]),

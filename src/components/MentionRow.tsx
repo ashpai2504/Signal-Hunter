@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { SOURCE_BY_ID } from "@/lib/brands";
+import { SOURCE_BY_ID, THEME_BY_ID } from "@/lib/brands";
 import type { Mention } from "@/lib/types";
 import { SignalBadge, SentimentDot } from "./SignalBadge";
 
@@ -39,15 +39,39 @@ export function MentionRow({ mention }: { mention: Mention }) {
         </span>
       </div>
 
-      {mention.competitors && mention.competitors.length > 0 && (
+      {((mention.competitors?.length ?? 0) > 0 ||
+        (mention.products?.length ?? 0) > 0 ||
+        (mention.themes?.length ?? 0) > 0) && (
         <div className="mt-2 flex flex-wrap items-center gap-1.5 text-[11px]">
-          <span className="text-slate-500">vs</span>
-          {mention.competitors.map((c) => (
+          {mention.products?.map((p) => (
             <span
-              key={c}
-              className="rounded border border-rose-500/25 bg-rose-500/10 px-1.5 py-0.5 font-medium text-rose-300"
+              key={p}
+              title="Tracked product named in this post"
+              className="rounded border border-emerald-500/25 bg-emerald-500/10 px-1.5 py-0.5 font-medium text-emerald-300"
             >
-              {c}
+              {p}
+            </span>
+          ))}
+          {mention.competitors && mention.competitors.length > 0 && (
+            <>
+              <span className="text-slate-500">vs</span>
+              {mention.competitors.map((c) => (
+                <span
+                  key={c}
+                  className="rounded border border-rose-500/25 bg-rose-500/10 px-1.5 py-0.5 font-medium text-rose-300"
+                >
+                  {c}
+                </span>
+              ))}
+            </>
+          )}
+          {mention.themes?.map((t) => (
+            <span
+              key={t}
+              title="Conversation theme"
+              className="rounded border border-white/10 bg-white/[0.04] px-1.5 py-0.5 text-slate-400"
+            >
+              {THEME_BY_ID[t]?.label ?? t}
             </span>
           ))}
         </div>
