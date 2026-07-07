@@ -158,7 +158,13 @@ export async function collectApifyReddit(brand: BrandConfig): Promise<RawHit[]> 
       },
     );
     if (!res.ok) {
-      console.warn(`  [apify-reddit] HTTP ${res.status}`);
+      // Loud, specific failure — a 402/403 here means Apify credit/plan issues
+      // and shows up verbatim in the GitHub Actions log.
+      const body = await res.text().catch(() => "");
+      console.warn(
+        `  [apify-reddit] FAILED HTTP ${res.status} — Reddit contributed 0 posts this run. ` +
+          `Check the APIFY_TOKEN secret and Apify credit (apify.com → Billing). ${body.slice(0, 300)}`,
+      );
       return [];
     }
     items = (await res.json()) as RedditPost[];

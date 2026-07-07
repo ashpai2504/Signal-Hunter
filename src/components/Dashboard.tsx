@@ -26,7 +26,13 @@ export function Dashboard() {
   const [view, setView] = useState<"opportunities" | "top">("opportunities");
   const [themeFilter, setThemeFilter] = useState<string | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [refreshState, setRefreshState] = useState<
+    "idle" | "starting" | "collecting" | "done" | "failed"
+  >("idle");
+  const [refreshNote, setRefreshNote] = useState<string | null>(null);
   const listRef = useRef<HTMLDivElement>(null);
+  const dataRef = useRef<ApiResponse | null>(null);
+  dataRef.current = data;
 
   function showList(next: "opportunities" | "top") {
     setSource(null);
@@ -37,22 +43,70 @@ export function Dashboard() {
     );
   }
 
+  async function loadData(): Promise<ApiResponse | null> {
+    try {
+      const r = await fetch("/api/mentions");
+      if (!r.ok) throw new Error(`API ${r.status}`);
+      const json = (await r.json()) as ApiResponse;
+      setData(json);
+      setError(null);
+      return json;
+    } catch (e) {
+      if (!dataRef.current) setError(String(e));
+      return null;
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  // Initial load + keep the dashboard current: refetch every 5 minutes and on
+  // tab focus (the API always serves the repo's latest committed data).
   useEffect(() => {
-    let active = true;
-    fetch("/api/mentions")
-      .then((r) => {
-        if (!r.ok) throw new Error(`API ${r.status}`);
-        return r.json();
-      })
-      .then((json: ApiResponse) => {
-        if (active) setData(json);
-      })
-      .catch((e) => active && setError(String(e)))
-      .finally(() => active && setLoading(false));
+    loadData();
+    const interval = setInterval(loadData, 5 * 60 * 1000);
+    const onFocus = () => loadData();
+    window.addEventListener("focus", onFocus);
     return () => {
-      active = false;
+      clearInterval(interval);
+      window.removeEventListener("focus", onFocus);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  /** Trigger a collection run now, then poll until the new data lands. */
+  async function refreshNow() {
+    if (refreshState === "starting" || refreshState === "collecting") return;
+    setRefreshState("starting");
+    setRefreshNote(null);
+    try {
+      const res = await fetch("/api/refresh", { method: "POST" });
+      const json = (await res.json()) as { note?: string; error?: string };
+      if (!res.ok) {
+        setRefreshState("failed");
+        setRefreshNote(json.error ?? "Refresh failed.");
+        return;
+      }
+      setRefreshState("collecting");
+      setRefreshNote("Collecting fresh mentions… takes ~3–5 min");
+      const before = dataRef.current?.generatedAt;
+      // Poll every 30s for up to 10 minutes until new data appears.
+      for (let i = 0; i < 20; i++) {
+        await new Promise((r) => setTimeout(r, 30_000));
+        const next = await loadData();
+        if (next && next.generatedAt !== before) {
+          setRefreshState("done");
+          setRefreshNote("✓ Updated with fresh data");
+          setTimeout(() => setRefreshState("idle"), 8000);
+          return;
+        }
+      }
+      setRefreshState("failed");
+      setRefreshNote("Run started but data hasn't landed yet — check back in a few minutes.");
+    } catch {
+      setRefreshState("failed");
+      setRefreshNote("Network error while triggering refresh.");
+    }
+  }
 
   const brandConfig = BRANDS.find((b) => b.id === brand)!;
   const summary = useMemo(
@@ -135,6 +189,21 @@ export function Dashboard() {
               );
             })}
           </div>
+          {/* Pull fresh mentions right now instead of waiting for the schedule */}
+          <button
+            onClick={refreshNow}
+            disabled={refreshState === "starting" || refreshState === "collecting"}
+            title="Scrape Reddit & news for new mentions right now"
+            className="rounded-xl border border-white/10 bg-white/[0.02] px-3 py-2 text-sm text-slate-300 hover:bg-white/[0.06] hover:text-white disabled:opacity-60"
+          >
+            {refreshState === "starting" || refreshState === "collecting" ? (
+              <span className="inline-flex items-center gap-1.5">
+                <span className="inline-block animate-spin">↻</span> Refreshing…
+              </span>
+            ) : (
+              "↻ Refresh"
+            )}
+          </button>
           {/* Manage tracked sources — products, subreddits, competitors */}
           <button
             onClick={() => setSettingsOpen(true)}
@@ -145,6 +214,18 @@ export function Dashboard() {
           </button>
         </div>
       </header>
+
+      {refreshNote && (
+        <div
+          className={`mb-4 rounded-lg border px-4 py-2.5 text-sm ${
+            refreshState === "failed"
+              ? "border-rose-500/30 bg-rose-500/10 text-rose-200"
+              : "border-sky-500/30 bg-sky-500/10 text-sky-200"
+          }`}
+        >
+          {refreshNote}
+        </div>
+      )}
 
       {settingsOpen && (
         <SettingsPanel brand={brand} onClose={() => setSettingsOpen(false)} />
