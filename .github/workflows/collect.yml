@@ -40,10 +40,6 @@ jobs:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: npm run collect
 
-      # Pull any config.json edits made from the dashboard while we ran.
-      - name: Rebase before push
-        run: git pull --rebase --autostash || true
-
       - name: Commit refreshed data
         run: |
           git config user.name "signal-bot"
@@ -53,5 +49,11 @@ jobs:
             echo "No changes to commit."
           else
             git commit -m "chore: refresh mentions $(date -u +%Y-%m-%dT%H:%MZ)"
+            # Commit FIRST, then rebase — never autostash an uncommitted data
+            # file (a pop conflict would leave merge markers in the JSON).
+            # On data-file conflicts keep OUR just-collected version (-X theirs
+            # favors the replayed commit during a rebase); config.json edits
+            # from the dashboard live in a different file and merge cleanly.
+            git pull --rebase -X theirs origin main
             git push
           fi
