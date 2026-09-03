@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T10:11:34.012Z",
+  "generatedAt": "2026-09-03T15:17:33.364Z",
   "mode": "live",
   "mentions": [
     {
@@ -13806,12 +13806,12 @@
       "author": "autoevolution",
       "context": "autoevolution",
       "publishedAt": "2026-08-03T07:00:00.000Z",
-      "collectedAt": "2026-09-03T10:11:03.102Z",
+      "collectedAt": "2026-09-03T15:17:21.822Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
       "brandMentioned": true,
-      "draftResponse": "Thanks for mentioning Hunter! While we focus on irrigation and outdoor products, it's interesting to see how our name resonates in different contexts. If you have any questions about our products, feel free to ask!"
+      "draftResponse": "Thanks for mentioning Hunter! While we focus on irrigation and outdoor products, it's great to see our name associated with such nostalgic camping memories. If you have any questions about our current offerings, feel free to ask!"
     },
     {
       "id": "5f29091ea0369208",
@@ -14062,12 +14062,12 @@
       "author": "Revelio Labs",
       "context": "Revelio Labs",
       "publishedAt": "2026-07-30T21:04:54.000Z",
-      "collectedAt": "2026-09-03T10:11:02.866Z",
-      "signalType": "brand-mention",
+      "collectedAt": "2026-09-03T15:17:21.875Z",
+      "signalType": "unanswered-question",
       "sentiment": "neutral",
       "engagement": 0,
       "brandMentioned": true,
-      "draftResponse": "Thank you for mentioning Hunter Industries! If you have any questions about our products or services, feel free to ask!"
+      "draftResponse": "Thank you for your interest in Hunter Industries! While we currently don't have specific employee count data for 2026, we appreciate your inquiry. Please check back for updates or feel free to reach out directly for more information!"
     },
     {
       "id": "8031d645f8535df8",
@@ -34306,12 +34306,12 @@
       "author": "canadianarchitect.com",
       "context": "canadianarchitect.com",
       "publishedAt": "2026-06-04T07:00:00.000Z",
-      "collectedAt": "2026-08-19T06:21:45.812Z",
+      "collectedAt": "2026-09-03T15:17:29.420Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
       "brandMentioned": false,
-      "draftResponse": "Thank you for mentioning Lumascape! We’re excited to be part of the conversation around innovative lighting solutions. If you have any questions about our products or their applications, feel free to reach out!"
+      "draftResponse": "Thank you for mentioning Lumascape in your coverage of the Light + Building Show! We’re excited to be part of the conversation around innovative architectural lighting solutions. If you have any questions or need more information, feel free to reach out!"
     },
     {
       "id": "2ec34a90d6a6f9a7",
@@ -36755,12 +36755,12 @@
       "author": "ArchiExpo e-Magazine",
       "context": "ArchiExpo e-Magazine",
       "publishedAt": "2026-03-24T07:00:00.000Z",
-      "collectedAt": "2026-09-03T10:11:28.367Z",
+      "collectedAt": "2026-09-03T15:17:31.352Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
       "brandMentioned": false,
-      "draftResponse": "Thank you for mentioning Lumascape! We're excited about the innovations in architectural lighting and how they can enhance smart design. Stay tuned for our latest developments and insights leading up to Light + Building 2026!"
+      "draftResponse": "Thank you for mentioning Lumascape in the context of innovative design! We are excited about the future of architectural lighting and look forward to showcasing our latest advancements at events like Light + Building."
     },
     {
       "id": "4908e2ac57f8059e",
@@ -37196,6 +37196,23 @@
       "engagement": 0,
       "brandMentioned": false,
       "draftResponse": "Thanks for sharing this news! It's always exciting to see new innovations in outdoor lighting. If you have any questions about our products or how they compare, feel free to ask!"
+    },
+    {
+      "id": "3419df0557e11f47",
+      "brand": "lumascape",
+      "source": "news",
+      "title": "Lighting People: On the Move | February 2026",
+      "excerpt": "Lighting People: On the Move | February 2026 - Inside Lighting",
+      "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE91eXNVcEt0cjFLZmFWRHN2S1MxcnFCZUFKNXZqRHRQWUpxNG1CZGdjRVluTkZTaUx4SDdHY0NJeWwwT3N0WWlEMlB3TnRFWkhJTGZ3ajFxMHZWbkZjaVJRUXhJYW1lSm9zQjJjOFllZFhrNnhQVWVZ?oc=5",
+      "author": "Inside Lighting",
+      "context": "Inside Lighting",
+      "publishedAt": "2026-02-25T08:00:00.000Z",
+      "collectedAt": "2026-09-03T15:17:31.318Z",
+      "signalType": "brand-mention",
+      "sentiment": "neutral",
+      "engagement": 0,
+      "brandMentioned": false,
+      "draftResponse": "Thank you for mentioning Lumascape! We're always excited to see discussions about lighting trends and innovations. If you have any questions or need insights on our products, feel free to reach out!"
     },
     {
       "id": "b724f712780e5d30",
@@ -37711,12 +37728,12 @@
       "author": "San Diego Foundation",
       "context": "San Diego Foundation",
       "publishedAt": "2026-01-26T08:00:00.000Z",
-      "collectedAt": "2026-09-03T10:11:07.163Z",
+      "collectedAt": "2026-09-03T15:17:21.533Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
       "brandMentioned": true,
-      "draftResponse": "Thank you for mentioning Hunter Industries! We are committed to supporting environmental initiatives and fostering sustainable practices in irrigation. If you're interested in how our products can contribute to water conservation, feel free to reach out!"
+      "draftResponse": "Thank you for mentioning our commitment to environmental leadership! At Hunter Industries, we believe in supporting initiatives that promote sustainable practices and empower future generations. If you have any questions about our products or sustainability efforts, feel free to ask!"
     },
     {
       "id": "6edb745b8b7c5db0",
@@ -38304,12 +38321,12 @@
       "author": "Electrical Business Magazine",
       "context": "Electrical Business Magazine",
       "publishedAt": "2025-12-08T08:00:00.000Z",
-      "collectedAt": "2026-09-03T10:11:15.390Z",
+      "collectedAt": "2026-09-03T15:17:23.702Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
       "brandMentioned": true,
-      "draftResponse": "Thank you for sharing this news about our Terra Collection! We're excited to offer innovative lighting solutions that enhance outdoor spaces. If you have any questions or need more information, feel free to ask!"
+      "draftResponse": "Thank you for sharing the news about our Terra Collection! We're excited to introduce these new midsized in-grade fixtures, designed to enhance outdoor spaces with style and efficiency. If you have any questions or need more information, feel free to reach out!"
     },
     {
       "id": "d89b3cd6ec6f10de",
@@ -38612,12 +38629,12 @@
       "author": "Landscape Management",
       "context": "Landscape Management",
       "publishedAt": "2025-11-05T08:00:00.000Z",
-      "collectedAt": "2026-09-03T01:36:59.934Z",
+      "collectedAt": "2026-09-03T15:17:23.628Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
       "brandMentioned": true,
-      "draftResponse": "Thank you for mentioning FX Luminaire! We're proud of our innovative designs that enhance outdoor spaces. If you have any questions or need more information about our products, feel free to ask!"
+      "draftResponse": "Thank you for mentioning FX Luminaire! We're proud to contribute to dynamic outdoor spaces with our innovative lighting solutions. If you have any questions or need more information about our products, feel free to ask!"
     },
     {
       "id": "500ab1ff5cf87b94",
@@ -39581,12 +39598,12 @@
       "author": "Dezeen",
       "context": "Dezeen",
       "publishedAt": "2025-09-08T06:05:16.000Z",
-      "collectedAt": "2026-09-03T10:11:32.188Z",
+      "collectedAt": "2026-09-03T15:17:31.577Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
       "brandMentioned": false,
-      "draftResponse": "Thank you for mentioning Lumascape in relation to the SECCA project! We love seeing innovative architectural designs that incorporate quality lighting solutions. If you have any questions about our products or their applications, feel free to ask!"
+      "draftResponse": "Thank you for mentioning Lumascape in the context of SECCA! We’re proud to be part of innovative architectural projects. If you have any questions about our products or their applications, feel free to ask!"
     },
     {
       "id": "8242690b323801c6",
@@ -39696,7 +39713,7 @@
       "author": "Home Accents Today",
       "context": "Home Accents Today",
       "publishedAt": "2025-08-22T07:00:00.000Z",
-      "collectedAt": "2026-09-02T15:24:30.007Z",
+      "collectedAt": "2026-09-03T15:17:29.216Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
@@ -39707,7 +39724,7 @@
         "residential"
       ],
       "brandMentioned": false,
-      "draftResponse": "Thank you for sharing this news about Kichler Lighting! If you're interested in exploring landscape lighting options, FX Luminaire offers a range of innovative solutions to enhance your outdoor spaces."
+      "draftResponse": "Thanks for sharing this news! It’s always interesting to see how different brands are positioning themselves in the market. If you have any questions about landscape lighting or how FX Luminaire can enhance your outdoor spaces, feel free to ask!"
     },
     {
       "id": "e6c57d40334b400b",
@@ -39921,12 +39938,12 @@
       "author": "Big Bend Sentinel",
       "context": "Big Bend Sentinel",
       "publishedAt": "2025-08-05T07:00:00.000Z",
-      "collectedAt": "2026-08-29T01:13:12.422Z",
+      "collectedAt": "2026-09-03T15:17:22.146Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
       "brandMentioned": true,
-      "draftResponse": "Thank you for sharing this news! At Hunter Industries, we believe in supporting local communities and education initiatives. It's great to see organizations like Flying W Ranch making a positive impact!"
+      "draftResponse": "Thank you for sharing this news! At Hunter Industries, we appreciate community initiatives that support education and growth. If you have any questions about our products or how we can help with outdoor projects, feel free to reach out!"
     },
     {
       "id": "f2656e682c4b5655",
