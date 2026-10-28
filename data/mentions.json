@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-28T11:43:07.241Z",
+  "generatedAt": "2026-10-28T17:28:36.669Z",
   "mode": "live",
   "mentions": [
     {
@@ -12,7 +12,7 @@
       "author": "LEDinside",
       "context": "LEDinside",
       "publishedAt": "2026-10-20T09:39:15.000Z",
-      "collectedAt": "2026-10-28T11:43:05.430Z",
+      "collectedAt": "2026-10-28T17:28:34.761Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
@@ -21,7 +21,7 @@
         "Lumenbeam"
       ],
       "brandMentioned": false,
-      "draftResponse": "Congratulations to Lumenpulse on their red dot award! It's always exciting to see innovation recognized in the lighting industry. If you're looking for unique architectural lighting solutions, feel free to explore what Lumascape has to offer!"
+      "draftResponse": "Congratulations to Lumenpulse on their red dot award! It's always exciting to see innovation recognized in the lighting industry."
     },
     {
       "id": "3dd94685d572571e",
@@ -32,13 +32,13 @@
       "url": "https://news.google.com/rss/articles/CBMiQEFVX3lxTFA2akxsZjBFcS1GSk1OaGZIeWxRUnV3WFFkRUZ2cE12Y1V5WkNuVTZoRUNOSlNwdDhXUEN6Z0JwQlk?oc=5",
       "author": "PPC Land",
       "context": "PPC Land",
-      "publishedAt": "2026-10-18T19:55:26.000Z",
-      "collectedAt": "2026-10-28T11:42:59.510Z",
+      "publishedAt": "2026-10-18T07:00:00.000Z",
+      "collectedAt": "2026-10-28T17:28:23.640Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
       "brandMentioned": true,
-      "draftResponse": "Thanks for mentioning Lumascape! If you have any questions about our architectural lighting solutions or need assistance, feel free to reach out. We're here to help!"
+      "draftResponse": "Thank you for mentioning Lumascape! If you have any questions or need information about our architectural and specification lighting, feel free to ask. We're here to help!"
     },
     {
       "id": "37d63ac8266e078c",
@@ -50,7 +50,7 @@
       "author": "Asian Golf Industry Federation",
       "context": "Asian Golf Industry Federation",
       "publishedAt": "2026-10-14T02:34:52.000Z",
-      "collectedAt": "2026-10-28T11:42:43.521Z",
+      "collectedAt": "2026-10-28T17:28:07.758Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
@@ -61,7 +61,7 @@
         "golf"
       ],
       "brandMentioned": false,
-      "draftResponse": "Thanks for mentioning Rain Bird! At Hunter Industries, we also focus on innovative irrigation solutions that help future-proof your projects. If you have any questions about our products or how they compare, feel free to ask!"
+      "draftResponse": "Thank you for mentioning Rain Bird! At Hunter Industries, we also focus on innovative irrigation solutions that help future-proof landscapes. If you have any questions about our products or services, feel free to ask!"
     },
     {
       "id": "4a45f404e1b29f9c",
@@ -73,7 +73,7 @@
       "author": "Golf Business News",
       "context": "Golf Business News",
       "publishedAt": "2026-10-07T07:00:00.000Z",
-      "collectedAt": "2026-10-28T11:42:43.509Z",
+      "collectedAt": "2026-10-28T17:28:08.233Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
@@ -85,7 +85,7 @@
         "commercial"
       ],
       "brandMentioned": false,
-      "draftResponse": "It's great to see investments in irrigation systems for golf courses! At Hunter Industries, we also offer innovative solutions that can enhance the sustainability and efficiency of your irrigation needs."
+      "draftResponse": "Thank you for sharing this news! It's great to see investments in irrigation technology for golf courses. At Hunter Industries, we also prioritize innovative solutions for maintaining beautiful greens. If you have any questions about our products, feel free to ask!"
     },
     {
       "id": "29c8de3e41852b3e",
@@ -159,15 +159,16 @@
       "author": "Golf Course Architecture",
       "context": "Golf Course Architecture",
       "publishedAt": "2026-09-23T07:00:00.000Z",
-      "collectedAt": "2026-10-28T11:42:41.241Z",
+      "collectedAt": "2026-10-28T17:28:06.355Z",
       "signalType": "brand-mention",
-      "sentiment": "positive",
+      "sentiment": "neutral",
       "engagement": 0,
       "themes": [
-        "golf"
+        "golf",
+        "commercial"
       ],
       "brandMentioned": true,
-      "draftResponse": "Thank you for mentioning Hunter irrigation! We're proud to support golf courses like Österåkers with our reliable systems. If you have any questions about our products or their performance, feel free to ask!"
+      "draftResponse": "Thank you for mentioning Hunter irrigation at Österåkers! We're proud to support golf course architecture with reliable irrigation solutions. If you have any questions or need assistance, feel free to reach out!"
     },
     {
       "id": "fff37a364dc45297",
@@ -3924,7 +3925,7 @@
       "author": "Yahoo Finance",
       "context": "Yahoo Finance",
       "publishedAt": "2026-08-24T07:00:00.000Z",
-      "collectedAt": "2026-10-28T11:42:41.193Z",
+      "collectedAt": "2026-10-28T17:28:06.563Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
@@ -3934,7 +3935,7 @@
         "Netafim"
       ],
       "brandMentioned": true,
-      "draftResponse": "Thank you for mentioning Hunter Industries in your market analysis! We are committed to providing innovative irrigation solutions. If you have any questions about our products or services, feel free to ask!"
+      "draftResponse": "Thank you for mentioning Hunter Industries! We're proud to be part of the watering equipment market and are committed to providing innovative solutions for all your irrigation needs."
     },
     {
       "id": "0438e4bbdcffd93d",
@@ -8563,16 +8564,17 @@
       "author": "BobVila.com",
       "context": "BobVila.com",
       "publishedAt": "2026-08-19T07:00:00.000Z",
-      "collectedAt": "2026-10-28T11:42:46.733Z",
+      "collectedAt": "2026-10-28T17:28:13.723Z",
       "signalType": "content-gap",
       "sentiment": "neutral",
       "engagement": 0,
       "themes": [
-        "buying-advice",
+        "diy",
+        "water-savings",
         "residential"
       ],
       "brandMentioned": false,
-      "draftResponse": "Thanks for sharing this! If you're looking for a reliable drip irrigation system, consider exploring Hunter's options. We focus on efficiency and ease of use, perfect for residential gardens. Let us know if you have any specific questions!"
+      "draftResponse": "Thanks for sharing this article! If you're looking for more detailed comparisons or tips on drip irrigation systems, feel free to ask. We're here to help you make the best choice for your landscaping needs!"
     },
     {
       "id": "418a620a7bcef285",
@@ -13231,7 +13233,7 @@
       "author": "Palomar College",
       "context": "Palomar College",
       "publishedAt": "2026-08-13T07:00:00.000Z",
-      "collectedAt": "2026-10-28T11:42:41.257Z",
+      "collectedAt": "2026-10-28T17:28:06.421Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
@@ -14304,12 +14306,12 @@
       "author": "autoevolution",
       "context": "autoevolution",
       "publishedAt": "2026-08-03T07:00:00.000Z",
-      "collectedAt": "2026-10-28T11:42:41.432Z",
+      "collectedAt": "2026-10-28T17:28:06.030Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
       "brandMentioned": true,
-      "draftResponse": "Thanks for mentioning Hunter! While we focus on irrigation and outdoor products, it's great to see our name associated with such nostalgic campers. If you have any questions about our irrigation solutions, feel free to ask!"
+      "draftResponse": "Thanks for mentioning Hunter! While we focus on irrigation and outdoor products, we love seeing our name associated with unique camping experiences. If you have any questions about our current offerings, feel free to ask!"
     },
     {
       "id": "5f29091ea0369208",
@@ -14338,12 +14340,12 @@
       "author": "Inside Lighting",
       "context": "Inside Lighting",
       "publishedAt": "2026-08-03T07:00:00.000Z",
-      "collectedAt": "2026-10-28T02:41:31.562Z",
+      "collectedAt": "2026-10-28T17:28:36.641Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
       "brandMentioned": false,
-      "draftResponse": "Thank you for mentioning Lumascape in your article! We appreciate the spotlight on industry leaders and are always eager to contribute to discussions about architectural and specification lighting."
+      "draftResponse": "Thanks for mentioning us! We appreciate the spotlight and are always here to provide insights on architectural and specification lighting. If you have any questions or need assistance, feel free to reach out!"
     },
     {
       "id": "5053b86496fb090b",
@@ -14514,12 +14516,12 @@
       "author": "Inside Lighting",
       "context": "Inside Lighting",
       "publishedAt": "2026-07-31T07:00:00.000Z",
-      "collectedAt": "2026-10-28T02:41:33.770Z",
+      "collectedAt": "2026-10-28T17:28:36.019Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
       "brandMentioned": false,
-      "draftResponse": "Thank you for mentioning Lumascape! We’re always excited to see developments in the lighting industry. If you have any questions about our products or innovations, feel free to reach out!"
+      "draftResponse": "Thank you for mentioning Lumascape! We're always excited to see developments in the lighting industry. If you have any questions about our products or innovations, feel free to ask!"
     },
     {
       "id": "68b69da53b658367",
@@ -14531,15 +14533,16 @@
       "author": "The New York Times",
       "context": "The New York Times",
       "publishedAt": "2026-07-31T07:00:00.000Z",
-      "collectedAt": "2026-10-28T11:42:43.509Z",
-      "signalType": "brand-mention",
+      "collectedAt": "2026-10-28T17:28:08.425Z",
+      "signalType": "content-gap",
       "sentiment": "neutral",
       "engagement": 0,
       "themes": [
-        "buying-advice"
+        "buying-advice",
+        "controller-programming"
       ],
       "brandMentioned": false,
-      "draftResponse": "Thanks for mentioning us! If you have any questions about our products or need assistance, feel free to ask. We're here to help!"
+      "draftResponse": "Thank you for your interest! While there are many great options out there, we believe our Hunter smart sprinkler timers offer unique features that enhance efficiency and ease of use. If you have specific questions about our products, feel free to ask!"
     },
     {
       "id": "0704abef39701f1a",
@@ -14628,12 +14631,12 @@
       "author": "Revelio Labs",
       "context": "Revelio Labs",
       "publishedAt": "2026-07-30T21:04:54.000Z",
-      "collectedAt": "2026-10-28T11:42:42.152Z",
-      "signalType": "brand-mention",
+      "collectedAt": "2026-10-28T17:28:06.460Z",
+      "signalType": "unanswered-question",
       "sentiment": "neutral",
       "engagement": 0,
       "brandMentioned": true,
-      "draftResponse": "Thank you for mentioning Hunter Industries! If you have any questions about our products or services, feel free to ask. We're here to help!"
+      "draftResponse": "Thank you for your interest in Hunter Industries! While we currently don't have specific employee count data for 2026, we appreciate your curiosity. For the latest updates about our company, feel free to check our official website or follow us on social media."
     },
     {
       "id": "8031d645f8535df8",
@@ -14841,7 +14844,7 @@
       "author": "Landscape Management",
       "context": "Landscape Management",
       "publishedAt": "2026-07-29T07:00:00.000Z",
-      "collectedAt": "2026-10-28T11:42:58.124Z",
+      "collectedAt": "2026-10-28T17:28:22.288Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
@@ -14850,7 +14853,7 @@
         "VOLT"
       ],
       "brandMentioned": false,
-      "draftResponse": "Thank you for sharing this update! It's always interesting to see how the industry evolves with new talent. If you're looking for innovative lighting solutions, FX Luminaire is here to help with your landscape lighting needs!"
+      "draftResponse": "Thanks for sharing! It's always interesting to see how the industry evolves with new talent. If you're looking for innovative landscape lighting solutions, feel free to explore what FX Luminaire has to offer!"
     },
     {
       "id": "1e4f6029a477e262",
@@ -14945,7 +14948,7 @@
       "author": "Lawn & Landscape",
       "context": "Lawn & Landscape",
       "publishedAt": "2026-07-28T07:00:00.000Z",
-      "collectedAt": "2026-10-28T11:42:57.915Z",
+      "collectedAt": "2026-10-28T17:28:21.879Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
@@ -14954,7 +14957,7 @@
         "VOLT"
       ],
       "brandMentioned": false,
-      "draftResponse": "Thank you for sharing this news! It's always interesting to see how leadership changes can impact the industry. If you have any questions about landscape lighting or our products, feel free to ask!"
+      "draftResponse": "Thank you for sharing this news! It's always interesting to see developments in the landscape lighting industry. If you have any questions about our products or services, feel free to ask!"
     },
     {
       "id": "a802a63ad5eee909",
@@ -15209,18 +15212,19 @@
       "author": "Business Wire",
       "context": "Business Wire",
       "publishedAt": "2026-07-22T07:00:00.000Z",
-      "collectedAt": "2026-10-28T11:42:57.965Z",
-      "signalType": "brand-mention",
+      "collectedAt": "2026-10-28T17:28:22.399Z",
+      "signalType": "competitor-frustration",
       "sentiment": "neutral",
       "engagement": 0,
       "competitors": [
         "VOLT"
       ],
       "themes": [
-        "installation"
+        "professional-contractor",
+        "commercial"
       ],
       "brandMentioned": false,
-      "draftResponse": "Thank you for sharing this news! It's always interesting to see how companies in the landscape lighting industry evolve and grow. If you have any questions about FX Luminaire or our products, feel free to ask!"
+      "draftResponse": "It's interesting to see how competitors like VOLT® are evolving. At FX Luminaire, we focus on providing innovative solutions and support for professionals in the landscape lighting industry. If you have any questions about our products, feel free to ask!"
     },
     {
       "id": "a130bfceae5ffbc8",
@@ -15272,7 +15276,7 @@
       "author": "citybiz",
       "context": "citybiz",
       "publishedAt": "2026-07-22T07:00:00.000Z",
-      "collectedAt": "2026-10-28T11:42:58.007Z",
+      "collectedAt": "2026-10-28T17:28:22.308Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
@@ -15281,7 +15285,7 @@
         "VOLT"
       ],
       "brandMentioned": false,
-      "draftResponse": "Thank you for sharing this news! It's always interesting to see how companies in the landscape lighting industry evolve. If you have any questions about our products or innovations at FX Luminaire, feel free to ask!"
+      "draftResponse": "Thank you for sharing the news about VOLT Lighting's leadership changes! If you have any questions about FX Luminaire or our products, feel free to ask."
     },
     {
       "id": "f67afb8c9242a91f",
@@ -34893,7 +34897,7 @@
       "author": "CNET",
       "context": "CNET",
       "publishedAt": "2026-06-04T07:00:00.000Z",
-      "collectedAt": "2026-10-28T11:42:45.494Z",
+      "collectedAt": "2026-10-28T17:28:11.473Z",
       "signalType": "content-gap",
       "sentiment": "neutral",
       "engagement": 0,
@@ -34902,7 +34906,7 @@
         "residential"
       ],
       "brandMentioned": false,
-      "draftResponse": "Thanks for sharing! If you're looking for smart sprinkler options, we recommend checking out our range of controllers that offer advanced features for easy irrigation management. Let us know if you have any specific questions about our products!"
+      "draftResponse": "Thanks for highlighting the need for smart sprinkler solutions! At Hunter Industries, we focus on innovative irrigation technology. If you're looking for tips on selecting the best smart sprinkler for your needs, feel free to ask!"
     },
     {
       "id": "a8459e38ae302756",
@@ -34951,12 +34955,12 @@
       "author": "Canadian Architect",
       "context": "Canadian Architect",
       "publishedAt": "2026-06-04T07:00:00.000Z",
-      "collectedAt": "2026-10-28T11:43:03.490Z",
+      "collectedAt": "2026-10-28T17:28:33.077Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
       "brandMentioned": false,
-      "draftResponse": "Thank you for mentioning Lumascape in your coverage of the Light + Building Show! We’re excited to showcase our latest innovations in architectural lighting. If you have any questions or need more information, feel free to reach out!"
+      "draftResponse": "Thank you for mentioning Lumascape in your coverage of the Light + Building Show! We’re excited to be part of the conversation around innovative architectural lighting solutions."
     },
     {
       "id": "2ec34a90d6a6f9a7",
@@ -36647,12 +36651,12 @@
       "author": "CSUSM NewsCenter",
       "context": "CSUSM NewsCenter",
       "publishedAt": "2026-04-27T07:00:00.000Z",
-      "collectedAt": "2026-10-28T11:42:41.150Z",
+      "collectedAt": "2026-10-28T17:28:06.189Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
       "brandMentioned": true,
-      "draftResponse": "Thank you for sharing the news about Hunter Hall of Science and Engineering! We're excited to see our name associated with such an important project. If you have any questions about our products or services, feel free to ask!"
+      "draftResponse": "Thank you for sharing this exciting news about Hunter Hall! It's great to see the progress in science and engineering at CSUSM. We’re proud to be part of the community."
     },
     {
       "id": "bc979d97cd45585a",
@@ -37359,7 +37363,7 @@
       "author": "Golf Course Industry",
       "context": "Golf Course Industry",
       "publishedAt": "2026-03-30T07:00:00.000Z",
-      "collectedAt": "2026-10-28T11:42:45.686Z",
+      "collectedAt": "2026-10-28T17:28:11.051Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
@@ -37370,7 +37374,7 @@
         "golf"
       ],
       "brandMentioned": false,
-      "draftResponse": "Thanks for sharing the news! At Hunter Industries, we continuously strive to innovate and provide top-quality products for the irrigation industry. If you have any questions about our offerings or need assistance, feel free to reach out!"
+      "draftResponse": "Thanks for sharing this news! It's always interesting to see advancements in irrigation technology. If you have any questions about our products or how they compare, feel free to ask!"
     },
     {
       "id": "69f58b9f142f1255",
@@ -37476,12 +37480,12 @@
       "author": "Lawn & Landscape",
       "context": "Lawn & Landscape",
       "publishedAt": "2026-03-27T07:00:00.000Z",
-      "collectedAt": "2026-10-28T11:42:41.186Z",
+      "collectedAt": "2026-10-28T17:28:06.384Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
       "brandMentioned": true,
-      "draftResponse": "Thank you for mentioning our ICD-100S Decoder! We're excited to introduce innovative products that enhance irrigation efficiency. If you have any questions about its features or applications, feel free to ask!"
+      "draftResponse": "Thank you for sharing the news about our ICD-100S Decoder! We're excited to bring innovative solutions to the irrigation industry. If you have any questions about our products or how they can benefit your projects, feel free to ask!"
     },
     {
       "id": "25ef38eacef1d733",
@@ -37776,12 +37780,12 @@
       "author": "Montreal Gazette",
       "context": "Montreal Gazette",
       "publishedAt": "2026-03-18T07:00:00.000Z",
-      "collectedAt": "2026-10-28T11:43:07.213Z",
+      "collectedAt": "2026-10-28T17:28:34.331Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
       "brandMentioned": false,
-      "draftResponse": "Thank you for mentioning Lumascape! We're proud to be part of the vibrant lighting landscape in cities like Montreal. If you have any questions about our products or projects, feel free to reach out!"
+      "draftResponse": "Thank you for mentioning Lumascape! We take pride in contributing to the beauty of architectural lighting in cities like Montreal. If you have any questions about our products or projects, feel free to ask!"
     },
     {
       "id": "c613b3e92dbd5513",
@@ -37979,7 +37983,7 @@
       "author": "Golfdom magazine",
       "context": "Golfdom magazine",
       "publishedAt": "2026-03-03T08:00:00.000Z",
-      "collectedAt": "2026-10-28T11:42:45.700Z",
+      "collectedAt": "2026-10-28T17:28:11.495Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
@@ -37990,7 +37994,7 @@
         "golf"
       ],
       "brandMentioned": false,
-      "draftResponse": "Thanks for sharing this news! Partnerships in the industry can lead to exciting innovations. At Hunter Industries, we're always looking for ways to enhance irrigation solutions for golf courses and beyond."
+      "draftResponse": "Thank you for sharing this news! Partnerships in the industry can lead to exciting innovations. At Hunter Industries, we’re always looking for ways to enhance irrigation solutions for golf courses and beyond."
     },
     {
       "id": "c53b57e17248ef9f",
@@ -38181,12 +38185,12 @@
       "author": "Online Athens",
       "context": "Online Athens",
       "publishedAt": "2026-02-19T13:53:44.000Z",
-      "collectedAt": "2026-10-28T11:42:59.796Z",
+      "collectedAt": "2026-10-28T17:28:23.941Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
       "brandMentioned": false,
-      "draftResponse": "Thank you for mentioning our advanced LED technology and smart control systems! We're excited to see how professionals like White Oak Landscape are expanding their services. If you have any questions about our products or need assistance, feel free to reach out!"
+      "draftResponse": "Thank you for mentioning our advanced LED technology and smart control systems! We're excited to see how our products are being utilized in innovative ways by professionals like White Oak Landscape."
     },
     {
       "id": "818977121fc8f82c",
@@ -38198,7 +38202,7 @@
       "author": "Golf Course Industry",
       "context": "Golf Course Industry",
       "publishedAt": "2026-02-19T08:00:00.000Z",
-      "collectedAt": "2026-10-28T11:42:44.180Z",
+      "collectedAt": "2026-10-28T17:28:08.194Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
@@ -38209,7 +38213,7 @@
         "golf"
       ],
       "brandMentioned": false,
-      "draftResponse": "Thanks for sharing the news about Rain Bird's partnerships! If you're interested in learning more about how Hunter Industries supports golf courses with our irrigation solutions, feel free to ask!"
+      "draftResponse": "Thanks for sharing the news! Partnerships in the industry can lead to exciting innovations and improvements. If you're interested in how Hunter Industries is contributing to the golf course sector, feel free to ask!"
     },
     {
       "id": "6697227f188372a9",
@@ -38221,7 +38225,7 @@
       "author": "Golf Business News",
       "context": "Golf Business News",
       "publishedAt": "2026-02-19T08:00:00.000Z",
-      "collectedAt": "2026-10-28T11:42:45.462Z",
+      "collectedAt": "2026-10-28T17:28:11.024Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
@@ -38232,7 +38236,7 @@
         "golf"
       ],
       "brandMentioned": false,
-      "draftResponse": "Thanks for sharing this article! It's great to see advancements in golf course irrigation. If you're looking for similar solutions or have any questions about our products, feel free to reach out!"
+      "draftResponse": "Thanks for sharing this article! It's great to see advancements in golf course irrigation. If you're ever interested in exploring Hunter Industries' solutions for enhancing course conditions, feel free to reach out!"
     },
     {
       "id": "bcce8a4ba1bd2da9",
@@ -38520,12 +38524,12 @@
       "author": "University of Colorado Boulder",
       "context": "University of Colorado Boulder",
       "publishedAt": "2026-02-02T08:00:00.000Z",
-      "collectedAt": "2026-10-28T11:43:03.490Z",
+      "collectedAt": "2026-10-28T17:28:32.659Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
       "brandMentioned": false,
-      "draftResponse": "Thank you for mentioning Don Kinderdick! If you have any specific questions or topics related to architectural lighting or our products, feel free to ask!"
+      "draftResponse": "Thanks for mentioning Don Kinderdick! If you're interested in architectural lighting or have any questions about our products, feel free to reach out!"
     },
     {
       "id": "f51363ec85f9c923",
@@ -38578,7 +38582,7 @@
       "author": "rAVe [PUBS]",
       "context": "rAVe [PUBS]",
       "publishedAt": "2026-01-29T18:47:37.000Z",
-      "collectedAt": "2026-10-28T11:42:49.935Z",
+      "collectedAt": "2026-10-28T17:28:19.279Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
@@ -38586,7 +38590,7 @@
         "Luxor"
       ],
       "brandMentioned": true,
-      "draftResponse": "Thank you for sharing the news about the Luxor CUBE! We're excited to introduce innovative lighting solutions that enhance outdoor spaces. If you have any questions or need more information, feel free to reach out!"
+      "draftResponse": "Thank you for sharing the news about the Luxor CUBE! We're excited to introduce innovative solutions that enhance landscape and architectural lighting. If you have any questions or need more information, feel free to reach out!"
     },
     {
       "id": "192672129cd8dc3e",
@@ -38724,12 +38728,12 @@
       "author": "San Diego Foundation",
       "context": "San Diego Foundation",
       "publishedAt": "2026-01-26T08:00:00.000Z",
-      "collectedAt": "2026-10-28T11:42:41.470Z",
+      "collectedAt": "2026-10-28T17:28:06.038Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
       "brandMentioned": true,
-      "draftResponse": "Thank you for sharing this insightful article! At Hunter Industries, we believe in supporting environmental initiatives and fostering the next generation of leaders. If you're interested in how our products contribute to sustainable practices, feel free to reach out!"
+      "draftResponse": "Thank you for sharing this insightful article! At Hunter Industries, we believe in supporting environmental initiatives and fostering the next generation of leaders. If you have any questions about our sustainable practices or products, feel free to ask!"
     },
     {
       "id": "6edb745b8b7c5db0",
@@ -38881,12 +38885,12 @@
       "author": "Irrigation & Lighting",
       "context": "Irrigation & Lighting",
       "publishedAt": "2026-01-15T08:00:00.000Z",
-      "collectedAt": "2026-10-27T16:55:01.017Z",
+      "collectedAt": "2026-10-28T17:28:10.630Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
       "brandMentioned": false,
-      "draftResponse": "Thanks for sharing the news about Michael Roberts! We're excited to see the direction he will take the Irrigation Association. At Hunter Industries, we’re always keen on advancements in the irrigation industry."
+      "draftResponse": "Thanks for sharing the news about Michael Roberts! We're excited to see how his leadership will influence the irrigation and lighting industry."
     },
     {
       "id": "7c01f2ea6c6b0c91",
@@ -38915,12 +38919,12 @@
       "author": "The Drum",
       "context": "The Drum",
       "publishedAt": "2026-01-09T08:00:00.000Z",
-      "collectedAt": "2026-10-28T11:43:01.582Z",
+      "collectedAt": "2026-10-28T17:28:31.463Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
       "brandMentioned": true,
-      "draftResponse": "Thanks for mentioning Lumascape! If you have any questions about our architectural lighting solutions or how they can enhance your projects, feel free to ask!"
+      "draftResponse": "Thank you for mentioning Lumascape! If you have any questions about our architectural lighting solutions or how they can enhance your projects, feel free to ask!"
     },
     {
       "id": "656696e3d7908afd",
@@ -39084,16 +39088,16 @@
       "author": "Consumer Reports",
       "context": "Consumer Reports",
       "publishedAt": "2026-01-01T08:00:00.000Z",
-      "collectedAt": "2026-10-28T11:42:45.535Z",
-      "signalType": "content-gap",
+      "collectedAt": "2026-10-28T17:28:11.366Z",
+      "signalType": "unanswered-question",
       "sentiment": "neutral",
       "engagement": 0,
       "themes": [
         "buying-advice",
-        "residential"
+        "comparing-brands"
       ],
       "brandMentioned": false,
-      "draftResponse": "Thank you for sharing this! If you're looking for smart sprinkler controllers, we recommend checking out our range. We focus on innovation and efficiency to help you save water while keeping your garden lush. Let us know if you have any questions!"
+      "draftResponse": "Thank you for sharing this resource! If you have any specific questions about our smart sprinkler controllers or how they compare to others, feel free to ask. We're here to help you make the best choice for your irrigation needs!"
     },
     {
       "id": "ad497a984c7380c0",
@@ -39278,12 +39282,12 @@
       "author": "CSUSM NewsCenter",
       "context": "CSUSM NewsCenter",
       "publishedAt": "2025-12-12T08:00:00.000Z",
-      "collectedAt": "2026-10-28T11:42:43.380Z",
+      "collectedAt": "2026-10-28T17:28:08.104Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
       "brandMentioned": true,
-      "draftResponse": "Thank you for sharing this news! We're proud of our commitment to education and community support. If you have any questions about our products or initiatives, feel free to ask!"
+      "draftResponse": "Thank you for sharing this news! We're proud to support educational initiatives and community development. If you have any questions about our products or services, feel free to ask!"
     },
     {
       "id": "b4b807c522900387",
@@ -39295,7 +39299,7 @@
       "author": "Claim Depot",
       "context": "Claim Depot",
       "publishedAt": "2025-12-12T08:00:00.000Z",
-      "collectedAt": "2026-10-28T11:42:45.430Z",
+      "collectedAt": "2026-10-28T17:28:10.882Z",
       "signalType": "competitor-frustration",
       "sentiment": "negative",
       "engagement": 0,
@@ -39306,7 +39310,7 @@
         "complaint"
       ],
       "brandMentioned": false,
-      "draftResponse": "We understand your concerns regarding data security in the irrigation industry. At Hunter Industries, we prioritize customer safety and privacy. If you have any questions about our products or practices, feel free to reach out!"
+      "draftResponse": "We understand your concerns regarding data security. At Hunter Industries, we prioritize customer privacy and work hard to ensure the safety of your information. If you have any questions about our practices, feel free to reach out!"
     },
     {
       "id": "c089710b3ea234e9",
@@ -39375,12 +39379,12 @@
       "author": "www.thecurrent.com",
       "context": "www.thecurrent.com",
       "publishedAt": "2025-12-10T08:00:00.000Z",
-      "collectedAt": "2026-10-28T11:42:59.594Z",
+      "collectedAt": "2026-10-28T17:28:23.927Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
       "brandMentioned": true,
-      "draftResponse": "Thank you for mentioning Lumascape! We’re excited about the innovative ways our technology can enhance the industry. If you have any questions about our architectural lighting solutions, feel free to ask!"
+      "draftResponse": "Thank you for mentioning Lumascape! We're excited about the innovative ways technology is shaping the industry. If you have any questions about our architectural lighting solutions, feel free to ask!"
     },
     {
       "id": "5d3b8ae5af73a00f",
@@ -39734,12 +39738,12 @@
       "author": "Landscape Management",
       "context": "Landscape Management",
       "publishedAt": "2025-11-05T08:00:00.000Z",
-      "collectedAt": "2026-10-28T11:42:50.041Z",
+      "collectedAt": "2026-10-28T17:28:19.336Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
       "brandMentioned": true,
-      "draftResponse": "Thank you for mentioning FX Luminaire! We take pride in our innovative designs that enhance outdoor spaces. If you have any questions about our products or need assistance, feel free to reach out!"
+      "draftResponse": "Thank you for highlighting our engineering! At FX Luminaire, we strive to create innovative lighting solutions that enhance outdoor spaces. If you have any questions or need assistance, feel free to reach out!"
     },
     {
       "id": "500ab1ff5cf87b94",
@@ -39892,12 +39896,12 @@
       "author": "Landscape Management",
       "context": "Landscape Management",
       "publishedAt": "2025-11-01T07:00:00.000Z",
-      "collectedAt": "2026-10-28T11:42:43.318Z",
+      "collectedAt": "2026-10-28T17:28:07.991Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
       "brandMentioned": true,
-      "draftResponse": "Thank you for mentioning Hunter Industries! We're committed to innovative solutions in water management. If you have any questions or need more information about our products, feel free to ask!"
+      "draftResponse": "Thank you for mentioning Hunter Industries! We're dedicated to innovating water management solutions that promote sustainability and efficiency. If you have any questions or need more information about our products, feel free to ask!"
     },
     {
       "id": "4af28f6134bf21c5",
@@ -40334,12 +40338,12 @@
       "author": "Landscape Management",
       "context": "Landscape Management",
       "publishedAt": "2025-10-10T07:00:00.000Z",
-      "collectedAt": "2026-10-28T11:42:50.019Z",
+      "collectedAt": "2026-10-28T17:28:18.964Z",
       "signalType": "brand-mention",
       "sentiment": "neutral",
       "engagement": 0,
       "brandMentioned": true,
-      "draftResponse": "Thank you for mentioning FX Luminaire! We're glad to be part of your landscape design. If you have any questions or need assistance with our products, feel free to reach out!"
+      "draftResponse": "Thank you for mentioning FX Luminaire in your design! We love seeing how our products are incorporated into landscape management. If you have any questions or need assistance, feel free to reach out!"
     },
     {
       "id": "fc8092759e98fee1",
@@ -40494,7 +40498,7 @@
       "author": "PR Newswire",
       "context": "PR Newswire",
       "publishedAt": "2025-10-01T07:00:00.000Z",
-      "collectedAt": "2026-10-28T11:42:48.290Z",
+      "collectedAt": "2026-10-28T17:28:15.248Z",
       "signalType": "competitor-frustration",
       "sentiment": "neutral",
       "engagement": 0,
@@ -40506,7 +40510,7 @@
         "comparing-brands"
       ],
       "brandMentioned": false,
-      "draftResponse": "It's interesting to see how competitors are evolving in the smart irrigation space. At Hunter Industries, we're committed to providing innovative solutions that meet the needs of our customers. If you have any questions about our products or how they compare, feel free to ask!"
+      "draftResponse": "It's interesting to see how competitors are evolving in the smart irrigation space. At Hunter Industries, we remain committed to providing innovative solutions that meet the needs of our customers while promoting sustainability."
     },
     {
       "id": "8efb98b740d1e80e",
